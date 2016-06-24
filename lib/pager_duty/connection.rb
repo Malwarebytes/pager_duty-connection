@@ -69,6 +69,7 @@ module PagerDuty
         end_time
         last_incident_timestamp
         last_status_change_on
+        rotation_virtual_start
         start
         started_at
         start_time
@@ -131,12 +132,12 @@ module PagerDuty
       end
     end
 
-    def initialize(account, token, api_version = 1)
+    def initialize(token, api_version = 2)
       @api_version = api_version
       @connection = Faraday.new do |conn|
-        conn.url_prefix = "https://#{account}.pagerduty.com/api/v#{api_version}"
+        conn.url_prefix = "https://api.pagerduty.com/"
 
-        # use token authentication: http://developer.pagerduty.com/documentation/rest/authentication
+        # use token authentication: https://v2.developer.pagerduty.com/docs/authentication
         conn.token_auth token
 
         conn.use RaiseApiErrorOnNon200

@@ -1,13 +1,14 @@
 #!/usr/bin/env ruby
 
+require 'pry'
 require 'dotenv'
+
 Dotenv.load ".env.development", '.env'
 
-account = ENV['PAGERDUTY_ACCOUNT'] || raise("Missing ENV['PAGERDUTY_ACCOUNT'], add to .env.development")
 token = ENV['PAGERDUTY_TOKEN'] || raise("Missing ENV['PAGERDUTY_TOKEN'], add to .env.development")
 
 require 'pager_duty/connection'
-$pagerduty = PagerDuty::Connection.new(account, token)
+$pagerduty = PagerDuty::Connection.new(token)
 
 schedule_id = ENV['PAGERDUTY_SCHEDULE_ID'] || raise("Missing ENV['PAGERDUTY_SCHEDULE_ID'], add to .env.development")
 
@@ -16,9 +17,11 @@ time_since = 1.day.ago
 time_until = Time.now
 
 # http://developer.pagerduty.com/documentation/rest/schedules/entries
-response = $pagerduty.get("schedules/#{schedule_id}/entries", 'since' => time_since, 'until' => time_until, :overflow => true)
+response = $pagerduty.get("schedules/#{schedule_id}", 'since' => time_since, 'until' => time_until, :overflow => true)
 
-entries = response['entries'] # note, probably a bug, but response.entries doesn't do what you think it does
+
+entries = response['schedule']['final_schedule']['rendered_schedule_entries'] # note, probably a bug, but response.entries doesn't do what you think it does
+
 
 entries.each do |entry|
   puts "#{entry.start} - #{entry.end}: #{entry.user.name}"
