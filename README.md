@@ -73,9 +73,8 @@ For more advanced and realistic examples, check out the examples directory:
 * [shifts-with-incidents-and-log-entries](examples/shifts-with-incidents-and-log-entries.rb)
 * [find-users](examples/find-users.rb)
 
-* [API Reference](https://v2.developer.pagerduty.com/v2/page/api-reference#!/API_Reference/get_api_reference)
-
-In general, you can get/put/post/delete a path, with some attributes. Use the [REST API Documentation](http://developer.pagerduty.com/documentation/rest) to get some ideas
+In general, you can get/put/post/delete a path, with some attributes. Use the [REST API Documentation](http://developer.pagerduty.com/documentation/rest) to get some ideas and the [API Reference](https://v2.developer.pagerduty.com/v2/page/api-reference#!/API_Reference/get_api_reference)
+)
 
 If you are working in Rails, and using only a single PagerDuty account, you'll probably want an initializer:
 
