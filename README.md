@@ -53,8 +53,8 @@ pagerduty = PagerDuty::Connection.new(key)
 
 # 4 main methods: get, post, put, and delete:
 
-response = pagerduty.get('some/relative/path', :some => 'request', :parameter => 'to pass')
-response = pagerduty.post('some/relative/path', :some => 'request', :parameter => 'to pass')
+response = pagerduty.get('some/relative/path')
+response = pagerduty.post('some/relative/path', { your-post-data-hash }, { From: 'your@email.address' })
 response = pagerduty.delete('some/relative/path', :some => 'request', :parameter => 'to pass')
 response = pagerduty.put('some/relative/path', :some => 'request', :parameter => 'to pass')
 
@@ -64,7 +64,7 @@ response = pagerduty.put('some/relative/path', :some => 'request', :parameter =>
 response = pagerduty.get('incidents')
 response.incidents # an array of incidents
 
-response = pagerduty.get('incidents/YYZ')
+response = pagerduty.get('incidents/{incident-id}')
 response # the hash/object that represents the array
 ```
 
@@ -73,20 +73,21 @@ For more advanced and realistic examples, check out the examples directory:
 * [shifts-with-incidents-and-log-entries](examples/shifts-with-incidents-and-log-entries.rb)
 * [find-users](examples/find-users.rb)
 
+* [API Reference](https://v2.developer.pagerduty.com/v2/page/api-reference#!/API_Reference/get_api_reference)
+
 In general, you can get/put/post/delete a path, with some attributes. Use the [REST API Documentation](http://developer.pagerduty.com/documentation/rest) to get some ideas
 
 If you are working in Rails, and using only a single PagerDuty account, you'll probably want an initializer:
 
 ```ruby
-$pagerduty = PagerDuty::Connection.new('your-subdomain', 'your-token')
+$pagerduty = PagerDuty::Connection.new('your-token')
 ```
 
 And if you are using [dotenv](https://github.com/bkeepers/dotenv), you can use environment variables, and stash them in .env:
 
 ```ruby
-account = ENV['PAGERDUTY_ACCOUNT'] || raise("Missing ENV['PAGERDUTY_ACCOUNT'], add to .env")
 token = ENV['PAGERDUTY_TOKEN'] || raise("Missing ENV['PAGERDUTY_TOKEN'], add to .env.#{Rails.env}")
-$pagerduty = PagerDuty::Connection.new(account, token)
+$pagerduty = PagerDuty::Connection.new(token)
 ```
 
 ## Questions and Answers
