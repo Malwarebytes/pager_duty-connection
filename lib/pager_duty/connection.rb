@@ -170,17 +170,18 @@ module PagerDuty
       run_request(:put, path, options)
     end
 
-    def post(path, options = {})
-      run_request(:post, path, options)
+    def post(path, options = {}, headers=nil)
+      run_request(:post, path, options, headers)
     end
 
     def delete(path, options = {})
       run_request(:delete, path, options)
     end
 
-    def run_request(method, path, options)
+    def run_request(method, path, options, headers=nil)
       path = path.gsub(/^\//, '') # strip leading slash, to make sure relative things happen on the connection
-      headers = nil
+      headers ||= nil
+
       response = connection.run_request(method, path, options, headers)
       response.body
     end
