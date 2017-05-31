@@ -41,12 +41,15 @@ Or install it yourself as:
 
 ## Usage
 
+You will need a pagerduty account and API key
+
+[Get an api key](https://support.pagerduty.com/hc/en-us/articles/202829310-Generating-an-API-Key)
 
 Working code is worth a thousand words. The basics:
 
 ```ruby
 # setup the connection
-pagerduty = PagerDuty::Connection.new(account, token)
+pagerduty = PagerDuty::Connection.new(key)
 
 # 4 main methods: get, post, put, and delete:
 
